@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ task.title }}{% endblock %}
+
+{% block body %}
+<main class="page-shell narrow">
+    <a class="back-link" href="{{ path('task_index') }}">Retour aux tâches</a>
+    <article class="detail-panel"><div class="detail-heading"><div><p class="eyebrow">Détail de la tâche</p><h1>{{ task.title }}</h1></div><span class="status">{{ task.status }}</span></div><p class="detail-description">{{ task.description ?: 'Aucune description.' }}</p><dl class="detail-meta"><div><dt>Priorité</dt><dd>{{ task.priority }}</dd></div><div><dt>Assignée à</dt><dd>{{ task.assignee ? task.assignee.name : 'Non assignée' }}</dd></div><div><dt>Créée le</dt><dd>{{ task.createdAt|date('d/m/Y H:i') }}</dd></div></dl><div class="form-actions"><a class="button button-secondary" href="{{ path('task_edit', {id: task.id}) }}">Modifier</a><form method="post" action="{{ path('task_delete', {id: task.id}) }}" onsubmit="return confirm('Supprimer cette tâche ?');"><input type="hidden" name="_token" value="{{ csrf_token('delete' ~ task.id) }}"><button class="button button-danger" type="submit">Supprimer</button></form></div></article>
+</main>
+{% endblock %}

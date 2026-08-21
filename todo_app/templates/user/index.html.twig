@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateurs{% endblock %}
+
+{% block body %}
+<main class="page-shell">
+    <header class="page-header"><div><p class="eyebrow">Équipe</p><h1>Utilisateurs</h1><p class="muted">Gérez les personnes qui peuvent recevoir des tâches.</p></div><a class="button button-primary" href="{{ path('user_new') }}">Nouvel utilisateur</a></header>
+    {% for message in app.flashes('success') %}<div class="flash">{{ message }}</div>{% endfor %}
+    <section class="user-list">
+        {% for user in users %}
+            <article class="user-row"><div class="avatar">{{ user.name|first|upper }}</div><div class="user-main"><strong>{{ user.name }}</strong><span>{{ user.email }}</span></div><span class="task-count">{{ user.tasks|length }} tâche{{ user.tasks|length != 1 ? 's' : '' }}</span><div class="row-actions"><a href="{{ path('user_edit', {id: user.id}) }}">Modifier</a><form method="post" action="{{ path('user_delete', {id: user.id}) }}" onsubmit="return confirm('Supprimer cet utilisateur ?');"><input type="hidden" name="_token" value="{{ csrf_token('delete-user' ~ user.id) }}"><button class="link-danger" type="submit">Supprimer</button></form></div></article>
+        {% else %}
+            <div class="empty-state"><strong>Aucun utilisateur</strong><span>Ajoutez un utilisateur pour pouvoir affecter des tâches.</span><a class="button button-primary" href="{{ path('user_new') }}">Ajouter un utilisateur</a></div>
+        {% endfor %}
+    </section>
+</main>
+{% endblock %}

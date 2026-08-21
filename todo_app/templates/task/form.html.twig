@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block body %}
+<main class="page-shell narrow">
+    <a class="back-link" href="{{ path('task_index') }}">Retour aux tâches</a>
+    <header class="page-header compact"><div><p class="eyebrow">Tâche</p><h1>{{ page_title }}</h1></div></header>
+    <div class="form-panel">{{ form_start(form) }}{{ form_row(form.title) }}{{ form_row(form.description) }}<div class="form-grid">{{ form_row(form.priority) }}{{ form_row(form.status) }}</div>{{ form_row(form.assignee) }}<div class="form-actions"><a class="button button-secondary" href="{{ path('task_index') }}">Annuler</a><button class="button button-primary" type="submit">Enregistrer</button></div>{{ form_end(form) }}</div>
+</main>
+{% endblock %}
